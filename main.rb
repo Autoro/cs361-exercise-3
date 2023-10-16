@@ -1,18 +1,32 @@
-class Student
-
-
-
-
-    MAX_COURSES = 5
-    def remove_from_schedule(course, schedule, quarter_id)
-      schedule.quarter[quarter_id].course_list.remove(course)
-    end
-    def add_to_schedule(course, schedule, quarter_id)
-      quarter     = schedule.quarter[quarter_id]
-      course_list = quarter.course_list
-      max_courses = course_list.maximum_number_of_courses
-      if max_courses < MAX_COURSES
-          course_list.add(course)
-      end
-      end
+class CourseList
+  attr_accessor max_courses
+  
+  def initialize(max_courses)
+    @max_courses = max_courses
+    @courses = []
   end
+
+  def remove(course)
+    courses.delete(course)
+  end
+
+  def add(course)
+    if courses.length < @max_courses
+      courses.append(course)
+    end
+  end
+end
+
+class Student
+  def initialize(course_list)
+    @course_list = course_list
+  end
+
+  def add_course(course)
+    @course_list.add(course)
+  end
+
+  def remove_course(course)
+    @course_list.remove(course)
+  end
+end
